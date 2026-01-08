@@ -26,22 +26,39 @@ Dokumen ini mencakup spesifikasi teknis untuk modul-modul berikut:
 
 ## 2. Arsitektur Sistem & Pemisahan Tanggung Jawab
 
-```mermaid
-graph TD
-    subgraph Admin_Internal ["Admin / Internal Ecosystem"]
-        AdminBrowser[Admin Browser] -->|Direct Access| Filament[Laravel + Filament /admin]
-        Filament -->|Eloquent| DB[(Database)]
-    end
-
-    subgraph User_Facing ["User-Facing Ecosystem"]
-        Mobile[Flutter App] -->|REST API| API[Laravel API Core]
-        Web[React Web App] -->|REST API| API
-        API -->|Eloquent| DB
-    end
-
-    style DB fill:#f9f,stroke:#333,stroke-width:2px
-    style API fill:#bbf,stroke:#333
-    style Filament fill:#bfb,stroke:#333
+```text
++-------------------------------------------------------+
+|                Admin / Internal Ecosystem             |
++-------------------------------------------------------+
+|                                                       |
+|   [ Browser ]                                         |
+|        │                                              |
+|        ▼                                              |
+|   [ Laravel + Filament ]  ───────┐                    |
+|        │                         │ (Direct Access)    |
+|        ▼                         ▼                    |
+|   [ Eloquent Model ]        [ Database ]              |
+|                                  ▲                    |
++-------------------------------------------------------+
+                                   │
+                                   │ (Data Storage)
+                                   │
++-------------------------------------------------------+
+|                 User-Facing Ecosystem                 |
++-------------------------------------------------------+
+|                                                       |
+|   [ Mobile App ]             [ Web App ]              |
+|     (Flutter)                 (React)                 |
+|        │                         │                    |
+|        └───────────┬─────────────┘                    |
+|                    │ (REST API)                       |
+|                    ▼                                  |
+|           [ Laravel API Core ]                        |
+|                    │                                  |
+|                    ▼                                  |
+|           [ Eloquent Model ]                          |
+|                                                       |
++-------------------------------------------------------+
 ```
 
 ### 2.1 Prinsip Pemisahan

@@ -26,23 +26,22 @@ Dokumen ini mencakup spesifikasi teknis untuk modul-modul berikut:
 
 ## 2. Arsitektur Sistem & Pemisahan Tanggung Jawab
 
-```
-                [ Admin / Internal App ]
-                        Browser
-                          ↓
-              Laravel + Filament (/admin)
-                          ↓
-                  Eloquent Models
-                          ↓
-                      Database
+```mermaid
+graph TD
+    subgraph Admin_Internal ["Admin / Internal Ecosystem"]
+        AdminBrowser[Admin Browser] -->|Direct Access| Filament[Laravel + Filament /admin]
+        Filament -->|Eloquent| DB[(Database)]
+    end
 
+    subgraph User_Facing ["User-Facing Ecosystem"]
+        Mobile[Flutter App] -->|REST API| API[Laravel API Core]
+        Web[React Web App] -->|REST API| API
+        API -->|Eloquent| DB
+    end
 
-                [ User-facing Apps ]
-Flutter Mobile App                React Web App
-        ↓                                ↓
-        └────── REST API (Laravel) ──────┘
-                        ↓
-                     Database
+    style DB fill:#f9f,stroke:#333,stroke-width:2px
+    style API fill:#bbf,stroke:#333
+    style Filament fill:#bfb,stroke:#333
 ```
 
 ### 2.1 Prinsip Pemisahan

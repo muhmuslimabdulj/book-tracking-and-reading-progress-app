@@ -984,6 +984,11 @@ Filament **BUKAN**:
 - `role` (user | admin)
 - `created_at` (read-only)
 
+**Table Capabilities:**
+
+- **Searchable:** `name`, `email`
+- **Filters:** `role`
+
 **Aksi yang DIIZINKAN:**
 
 - Lihat daftar user
@@ -1011,6 +1016,11 @@ Filament **BUKAN**:
 - `user.name` (read-only)
 - `category.name`
 - `created_at`
+
+**Table Capabilities:**
+
+- **Searchable:** `title`, `author`, `user.name`
+- **Filters:** `status`, `category`
 
 **Aksi yang DIIZINKAN:**
 
